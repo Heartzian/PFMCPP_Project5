@@ -104,13 +104,13 @@ struct Market
 
         void calculateOrderPrice(int breakfastProds, int morningBreakProds, int lunchProds, int coffeeBreakProds, int dinnerProds); 
         void orderProducts(bool deliveryRequired = true);  
-        auto countNoInventoryProducts(int maxAllowed); //Moved from Line 110
+        //auto countNoInventoryProducts(int maxAllowed); //Moved from Line 112
     };
 
     void sellProducts(Customer customerName);
     void adjustInventary(Customer customerName);
-    /*Customer countNoInventoryProducts(int maxAllowed)
-    {
+    Customer countNoInventoryProducts(int maxAllowed); //Line 180
+    /*{
         Customer custName;
         for (int i = 0; i < maxAllowed; ++i)
         {
@@ -177,7 +177,8 @@ void Market::Customer::orderProducts(bool requiredDelivery)
     totalToPay = (productsPrice * tax) + deliveryCharge;
 }
 
-auto Market::Customer::countNoInventoryProducts(int maxAllowed)
+Customer Market::countNoInventoryProducts(int maxAllowed)
+//auto Market::Customer::countNoInventoryProducts(int maxAllowed)
 {
     Customer custName;
     for (int i = 0; i < maxAllowed; ++i)
@@ -550,9 +551,9 @@ int main()
     carl.orderProducts(true);
     superStarMarket.sellProducts(carl);
     superStarMarket.adjustInventary(carl);
-    auto custName = carl.countNoInventoryProducts(5);
-    //auto custName = superStarMarket.countNoInventoryProducts(5);
-    //Line 110
+    //auto custName = carl.countNoInventoryProducts(5);
+    auto custName = superStarMarket.countNoInventoryProducts(5);
+    //Line 112
 
     University programmingSchoolUniversity; //Line 196
     University::Professor joseph;
