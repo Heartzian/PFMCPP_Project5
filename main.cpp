@@ -99,11 +99,13 @@ struct Market
         double totalToPay = 0;
         int noInventoryProducts = 0;
         bool deliveryRequired = false;
+        int dailyCustomers = 0;
         Customer();
         ~Customer() {std::cout << "Customer Destructor\n";}
 
         void calculateOrderPrice(int breakfastProds, int morningBreakProds, int lunchProds, int coffeeBreakProds, int dinnerProds); 
-        void orderProducts(bool deliveryRequired = true);  
+        void orderProducts(bool deliveryRequired = true);
+        int countNumberCustomers(int numberDays);
     };
 
     void sellProducts(Customer customerName);
@@ -159,6 +161,14 @@ void Market::Customer::orderProducts(bool requiredDelivery)
     totalToPay = (productsPrice * tax) + deliveryCharge;
 }
 
+int Market::Customer::countNumberCustomers(int numberDays)
+{
+    srand(1);
+    int x = rand();
+    dailyCustomers = x;
+    return dailyCustomers * numberDays;
+}
+
 Market::Customer Market::countNoInventoryProducts(int maxAllowed)
 {
     Customer custName;
@@ -186,6 +196,7 @@ void Market::sellProducts(Customer customerNick) //carl in main()
     --numPeopleWorkingAtStore;
     }
     dailyIncome += customerNick.totalToPay;
+    dailyProfit = dailyIncome * 0.65;
 
     std::cout << "Dear " << customerNick.customerName << ", you ordered " <<  customerNick.productsToOrder << " products, with a total cost of $" << customerNick.totalToPay << ", which will be Delivered by Tom." << " this week, you have come to our store " << customerNick.visitsThisWeek << " times, Thanks for buying with us!\n" << std::endl;
 }
@@ -200,7 +211,7 @@ struct University
 {
     int numClassrooms = 80;
     int numLabs = 36;
-    int numProfessors = 95;
+    int numProfessors = 65;
     float semIncome = 0;
     int classesPerSemester = 0;
     std::string universityName {"Programming Technology University"};
@@ -216,10 +227,11 @@ struct University
         std::string professorName {"Joseph Abraham Stern"};
         int yearsExperience = 15;
         int teachedClasses;
+        int subscribedStudents;
         Professor();
         ~Professor() {std::cout << "Professor Destructor\n";}
 
-        void checkSubscribedStudents();
+        int checkSubscribedStudents();
         float computeMonthlyExpenses(float rent = 1800,
                                      float food = 550,
                                      float fun = 120, 
@@ -289,9 +301,13 @@ University::Student::Student()
     std::cout << "University Student being constructed!\n" << std::endl;
 }
 
-void University::Professor::checkSubscribedStudents()
+int University::Professor::checkSubscribedStudents()
 {
-    return ;
+    int max = 1000;
+    srand(1);
+    int x = rand();
+    subscribedStudents = x % max;
+    return subscribedStudents;
 }
 
 float University::Professor::computeMonthlyExpenses(float rent,
@@ -486,23 +502,33 @@ void Computer::connectToPCs(bool LANavailable)
 //new UDT 4:
 struct Marketing
 {
-    Market numberLocations;
-    Market::Customer numberCustomers;
+    Market asiaLocations;
+    Market::Customer numCustomers;
     Marketing();
     ~Marketing() {std::cout << "Marketing Destructor\n";}
 
-    void calculateExpenses();
-    void calculateRentability();
+    void calculateExpensesRate(Market marketName, int planningDays);
+    void calculateRentability(Market marketName, int promotionDays, int numberCustomers);
 };
 
-void Marketing::calculateExpenses()
+Marketing::Marketing(){}
+
+void Marketing::calculateExpensesRate(Market marketName, int planningDays)
 {
-    std::cout << "function calculateExpenses() called";
+    double dailyIndirectExpenses = marketName.dailyBasicUtilitiesFee; 
+    double dailyDirectExpenses = marketName.numPeopleWorkingAtStore * 5;
+    double directExpenses = dailyDirectExpenses * planningDays;
+    double indirectExpenses = dailyIndirectExpenses * planningDays;
+    double generalExpensesRate = (directExpenses / indirectExpenses) * 100;
+    std::cout << "Your New Product Marketing General Expenses Rate is " << generalExpensesRate << "%\n" << std::endl;
 }
 
-void Marketing::calculateRentability()
+void Marketing::calculateRentability(Market marketName, int promotionDays, int numberCustomers = 0)
 {
-    std::cout << "function calculateRentability() called";
+    double totalProfit = marketName.dailyProfit * numberCustomers * promotionDays;
+    double totalIncome = marketName.dailyIncome * (numberCustomers * 2.75) * promotionDays;
+    double rentability = ((totalProfit * promotionDays) / (totalIncome * promotionDays)) * 100;
+    std::cout << "Your New Product Marketing Rentability is " << rentability << "%\n" << std::endl;;
 }
 
 //new UDT 5:
@@ -514,18 +540,26 @@ struct Projects
     Projects();
     ~Projects() {std::cout << "Projects Destructor\n";}
 
-    void calculateUniversityRanking();
-    void calculateResearchInvestment();
+    void calculateUniversityRanking(University universityName, University::Professor professorName, University::Student studentName);
+    void calculateResearchInvestment(University univName, University::Professor professorName);
 };
 
-void Projects::calculateUniversityRanking()
+Projects::Projects() {}
+
+void Projects::calculateUniversityRanking(University univName, University::Professor professorName, University::Student studentName)
 {
-    std::cout << "function calculateUniversityRanking() called";
+    int x = professorName.checkSubscribedStudents();
+    auto y = univName.calculatePresentations(studentName);
+    std::cout << "The University ranking points are " << y.numberPresentations * x << "\n" << std::endl;
 }
 
-void Projects::calculateResearchInvestment()
+void Projects::calculateResearchInvestment(University univName, University::Professor professorName)
 {
-    std::cout << "function calculateResearchInvestment() called";
+    int x = professorName.checkSubscribedStudents();
+    univName.semIncome = x * 30'000;
+    float investment = univName.semIncome - (univName.numProfessors * 15'000 * 6);
+    
+    std::cout << "This semester were invested on Research $ " << investment << std::endl;
 }
 
 /*
@@ -549,6 +583,7 @@ int main()
     Market::Customer carl;
     carl.calculateOrderPrice(); //Have options to select
     carl.orderProducts(true);
+    auto customers = carl.countNumberCustomers(45); //
     superStarMarket.sellProducts(carl);
     superStarMarket.adjustInventary(carl);
     auto custName = superStarMarket.countNoInventoryProducts(5);
@@ -569,12 +604,12 @@ int main()
     gamingPC.addGamesToRAM(highSpecs, canPlay);
 
     Marketing newProductLaunch; //Line 487
-    newProductLaunch.calculateExpenses();
-    newProductLaunch.calculateRentability();
+    newProductLaunch.calculateExpensesRate(superStarMarket, 18);
+    newProductLaunch.calculateRentability(superStarMarket, 45, customers);
     
-    Projects engineeringResearch;
-    engineeringResearch.calculateUniversityRanking();
-    engineeringResearch.calculateResearchInvestment();
+    Projects engineeringResearch; //Line 530
+    engineeringResearch.calculateUniversityRanking(programmingSchoolUniversity, joseph, frank);
+    engineeringResearch.calculateResearchInvestment(programmingSchoolUniversity, joseph);
     
     std::cout << "good to go!" << std::endl;
 }
