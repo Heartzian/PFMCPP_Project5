@@ -192,8 +192,9 @@ void Market::sellProducts(Customer customerNick) //carl in main()
 { 
     ++customerNick.visitsThisWeek;
     if (customerNick.deliveryRequired == true)
-    {--numLogisticVehicles;
-    --numPeopleWorkingAtStore;
+    {
+        --numLogisticVehicles;
+        --numPeopleWorkingAtStore;
     }
     dailyIncome += customerNick.totalToPay;
     dailyProfit = dailyIncome * 0.65;
