@@ -495,6 +495,16 @@ struct Marketing
     void calculateRentability();
 };
 
+void Marketing::calculateExpenses()
+{
+    std::cout << "function calculateExpenses() called";
+}
+
+void Marketing::calculateRentability()
+{
+    std::cout << "function calculateRentability() called";
+}
+
 //new UDT 5:
 struct Projects
 {
@@ -508,6 +518,15 @@ struct Projects
     void calculateResearchInvestment();
 };
 
+void Projects::calculateUniversityRanking()
+{
+    std::cout << "function calculateUniversityRanking() called";
+}
+
+void Projects::calculateResearchInvestment()
+{
+    std::cout << "function calculateResearchInvestment() called";
+}
 
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
@@ -548,6 +567,14 @@ int main()
     highSpecs.playGames();
     auto canPlay = gamingPC.executePrograms(highSpecs, "GTA");
     gamingPC.addGamesToRAM(highSpecs, canPlay);
+
+    Marketing newProductLaunch; //Line 487
+    newProductLaunch.calculateExpenses();
+    newProductLaunch.calculateRentability();
+    
+    Projects engineeringResearch;
+    engineeringResearch.calculateUniversityRanking();
+    engineeringResearch.calculateResearchInvestment();
     
     std::cout << "good to go!" << std::endl;
 }
