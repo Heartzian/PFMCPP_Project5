@@ -116,6 +116,7 @@ struct Market
     void sellProducts(Customer customerName);
     void adjustInventary(Customer customerName);
     Customer countNoInventoryProducts(int maxAllowed); 
+    int thisPracticeFunction();
 };
 
 Market::Market()
@@ -171,6 +172,10 @@ int Market::Customer::countNumberCustomers(int numberDays)
     srand(1);
     int x = rand();
     dailyCustomers = x;
+    if (dailyCustomers < 0)
+    {
+        dailyCustomers *= -1;
+    }
     return dailyCustomers * numberDays;
 }
 
@@ -210,6 +215,12 @@ void Market::sellProducts(Customer customerNick) //carl in main()
 void Market::adjustInventary(Customer customerName)
 {
     numProdLocalInv -= customerName.productsToOrder;
+}
+
+int Market::thisPracticeFunction()
+{
+    std::cout << "Just practicing: \t";
+    return 0;
 }
 
 //copied UDT 2:
@@ -262,7 +273,7 @@ struct University
         Student();
         ~Student() {std::cout << "Student Destructor\n";}
 
-        void computeWeekStudyTime();
+        double computeWeekStudyTime();
         void computeSemestralAbsences();
         void displayStudentInfo(Student studentName);
         void subscribeCourse(Student studentName, Professor professorName);
@@ -324,11 +335,12 @@ float University::Professor::computeMonthlyExpenses(float rent,
     return rent + food + fun + other;
 }
 
-void University::Student::computeWeekStudyTime()
+double University::Student::computeWeekStudyTime()
 {
     weeklyPresentialStudyHours = semestralCredits * 3;
     weeklyResearchStudyHours = weeklyPresentialStudyHours * 2;
     semestralStudyTime = (weeklyPresentialStudyHours + weeklyResearchStudyHours) * 16;
+    return semestralStudyTime;
 }
 
 void University::Student::computeSemestralAbsences()
@@ -396,13 +408,13 @@ struct Computer
         Hardware();
         ~Hardware() {std::cout << "Hardware Destructor\n";}
         
-        void playGames(); 
+        std::string playGames(); 
         void trainAI(); 
         void workAtOffice(); 
     };
 
     bool executePrograms(Hardware specs, std::string installedSoft);  
-    void saveInfo(bool diskAvailable = true); 
+    std::string saveInfo(bool diskAvailable = true); 
     void connectToPCs(bool LANavailable = true);
     Hardware addGamesToRAM(Hardware pcType, bool abilityToPlay)
     {
@@ -438,14 +450,13 @@ Computer::Hardware::Hardware()
     std::cout << "Computer Hardware being constructed!\n" << std::endl;
 }
 
-void Computer::Hardware::playGames()
+std::string Computer::Hardware::playGames()
 {
     if (RAM >= 4 && disk >=256 && CPU >= 3.0 && GPU >= 2)
     {
-        //std::cout << "You can use this computer to play games";  
-    
         canPlayGames = true;
     }
+    return "You can use this computer to play games!"; 
 }
 
 void Computer::Hardware::trainAI()
@@ -486,14 +497,13 @@ bool Computer::executePrograms(Hardware specs, std::string installedSoft)
     return specs.canPlayGames;
 }
 
-void Computer::saveInfo(bool diskAvailable)
+std::string Computer::saveInfo(bool diskAvailable)
 {
     if (diskAvailable == true)
     {
-        std::cout << "The file will be saved";
-
         canSaveInfo = true;
     }
+    return "The file was saved";
     
 }
 
@@ -616,6 +626,35 @@ int main()
     Projects engineeringResearch; //Line 530
     engineeringResearch.calculateUniversityRanking(programmingSchoolUniversity, joseph, frank);
     engineeringResearch.calculateResearchInvestment(programmingSchoolUniversity, joseph);
+
+    // 'This' practice
+    std::cout << "Market variable call superStarMarket.numProdLocalInv = " << superStarMarket.numProdLocalInv << std::endl;
+
+    std::cout << "Market function call superStarMarket.thisPracticeFunction() = " << superStarMarket.thisPracticeFunction() << std::endl;
+    
+    std::cout << "Market::Customer variable call carl.productsToOrder = " << carl.productsToOrder << std::endl;
+    
+    std::cout << "Market::Customer function call carl.countNumberCustomers() = " << carl.countNumberCustomers(3) << std::endl;
+    
+    std::cout << "University variable call programmingSchoolUniversity.semIncome = " << programmingSchoolUniversity.numClassrooms << std::endl;
+
+    std::cout << "University function call programmingSchoolUniversity.teachStudents() = " << programmingSchoolUniversity.teachStudents() << std::endl;
+    
+    std::cout << "University::Professor variable call joseph.professorName  = " << joseph.professorName << std::endl;
+
+    std::cout << "University::Professor function call joseph.checkSubscribedStudents()  = " << joseph.checkSubscribedStudents() << std::endl;
+    
+    std::cout << "University::Student variable call frank.weeklyResearchStudyHours  = " << frank.weeklyResearchStudyHours << std::endl;
+
+    std::cout << "University::Student function call frank.computeWeekStudyTime()  = " << frank.computeWeekStudyTime() << std::endl;
+    
+    std::cout << "Computer funtion call gamingPC.()  = " << gamingPC.execTask << std::endl;
+
+    std::cout << "Computer variable call gamingPC.saveInfo()  = " << gamingPC.saveInfo() << std::endl;
+    
+    std::cout << "Computer::Hardware variable call highSpecs.screen = " << highSpecs.screen << std::endl;
+    
+    std::cout << "Computer::Hardware function call highSpecs.playGames() = " << highSpecs.playGames() << std::endl;
     
     std::cout << "good to go!" << std::endl;
 }
