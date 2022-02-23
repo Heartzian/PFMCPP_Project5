@@ -111,12 +111,15 @@ struct Market
         void calculateOrderPrice(int breakfastProds, int morningBreakProds, int lunchProds, int coffeeBreakProds, int dinnerProds); 
         void orderProducts(bool deliveryRequired = true);
         int countNumberCustomers(int numberDays);
+        void changeProdAndNumCust();
     };
 
+    Customer phillip;
+
     void sellProducts(Customer customerName);
-    void adjustInventary(Customer customerName);
+    double adjustInventary(Customer customerName);
     Customer countNoInventoryProducts(int maxAllowed); 
-    int thisPracticeFunction();
+    void changeStaffAndinventory();
 };
 
 Market::Market()
@@ -212,16 +215,29 @@ void Market::sellProducts(Customer customerNick) //carl in main()
     std::cout << "Dear " << customerNick.customerName << ", you ordered " <<  customerNick.productsToOrder << " products, with a total cost of $" << customerNick.totalToPay << ", which will be Delivered by Tom." << " this week, you have come to our store " << customerNick.visitsThisWeek << " times, Thanks for buying with us!\n" << std::endl;
 }
 
-void Market::adjustInventary(Customer customerName)
+double Market::adjustInventary(Customer customerName)
 {
     numProdLocalInv -= customerName.productsToOrder;
+    return numProdLocalInv;
 }
 
-int Market::thisPracticeFunction()
+void Market::changeStaffAndinventory()
 {
-    std::cout << "Just practicing: \t";
-    return 0;
+    this->numPeopleWorkingAtStore -= 1;
+    this->adjustInventary(phillip);
 }
+
+void Market::Customer::changeProdAndNumCust()
+{
+    this->productsToOrder = 20;
+    this->countNumberCustomers(3);
+}
+
+/*int Market::changeInvAndSales(int newValue)
+{
+    this->numProdLocalInv -= newValue;
+    return 0;
+}*/
 
 //copied UDT 2:
 struct University
@@ -253,6 +269,7 @@ struct University
                                      float food = 550,
                                      float fun = 120, 
                                      float other = 150);
+        void changeNameAndSubscribedSt();
     };
 
     struct Student
@@ -277,6 +294,7 @@ struct University
         void computeSemestralAbsences();
         void displayStudentInfo(Student studentName);
         void subscribeCourse(Student studentName, Professor professorName);
+        void changeHoursAndStudyTime();
     }; 
 
     float teachStudents();  
@@ -286,21 +304,8 @@ struct University
     void doCulturalActivities(Student name,
                               std::string category = "Arts",
                               std::string activity = "Music Museum Visit"); 
-    Student calculatePresentations(Student studentNick)
-    {
-        //Student phil;
-        int totalPresentations = studentNick.semestralCredits * 2;
-        while (studentNick.numberPresentations < totalPresentations)
-        {
-            studentNick.numberPresentations += 3;
-            std::cout << studentNick.studentName << " this semester your should present " << studentNick.numberPresentations << " presentations."<< std::endl;
-            if (studentNick.numberPresentations >= totalPresentations)
-            {
-                return studentNick;
-            }
-        }
-        return Student {};
-    }
+    Student calculatePresentations(Student studentNick);
+    void changeIncomeAndTeachSt();
 };
 
 University::University()
@@ -335,6 +340,12 @@ float University::Professor::computeMonthlyExpenses(float rent,
     return rent + food + fun + other;
 }
 
+void University::Professor::changeNameAndSubscribedSt()
+{
+    this->professorName = "Joseph A. Stern";
+    this->checkSubscribedStudents();
+}
+
 double University::Student::computeWeekStudyTime()
 {
     weeklyPresentialStudyHours = semestralCredits * 3;
@@ -358,6 +369,12 @@ void University::Student::subscribeCourse(Student studentNick, Professor profess
     std::cout << "Dear " << studentNick.studentName << " you've successfully subscribed the assignature " << studentNick.courseName << ". Which will have Professor " << professorNick.professorName << " as Main Professor for this class.\n" << std::endl;
 }
 
+void University::Student::changeHoursAndStudyTime()
+{
+    this->weeklyPresentialStudyHours += 10;
+    this->computeWeekStudyTime();
+}
+
 float University::teachStudents() 
 {
     int calculus = 8;
@@ -378,6 +395,28 @@ void University::doCulturalActivities(Student studentNick,
                                            std::string activity)
 {
     std::cout << "This semester the University performed a Cultural Activity with " << studentNick.studentName << " from " << studentNick.career << " which likes to " << studentNick.hobby << " in the category: " << category << " doing the activity " << activity << ".\n" << std::endl;
+}
+
+University::Student University::calculatePresentations(Student studentNick)
+{
+    //Student phil;
+    int totalPresentations = studentNick.semestralCredits * 2;
+    while (studentNick.numberPresentations < totalPresentations)
+    {
+        studentNick.numberPresentations += 3;
+        std::cout << studentNick.studentName << " this semester your should present " << studentNick.numberPresentations << " presentations."<< std::endl;
+        if (studentNick.numberPresentations >= totalPresentations)
+        {
+            return studentNick;
+        }
+    }
+    return Student {};
+}
+
+void University::changeIncomeAndTeachSt()
+{
+    this->semIncome += 25;
+    this->teachStudents();
 }
 
 //copied UDT 3:
@@ -411,33 +450,14 @@ struct Computer
         std::string playGames(); 
         void trainAI(); 
         void workAtOffice(); 
+        void changeScreenAndPlayGames();
     };
 
     bool executePrograms(Hardware specs, std::string installedSoft);  
     std::string saveInfo(bool diskAvailable = true); 
     void connectToPCs(bool LANavailable = true);
-    Hardware addGamesToRAM(Hardware pcType, bool abilityToPlay)
-    {
-        if (abilityToPlay == true)
-        {
-            int maxAllowedGames = 5;
-            while(pcType.gamesAtRAM < maxAllowedGames)
-            {
-                ++pcType.gamesAtRAM;
-                std::cout << "Games loaded at RAM: " << pcType.gamesAtRAM << std::endl;
-                if (pcType.gamesAtRAM >= maxAllowedGames)
-                {
-                    std::cout << "Max. Games Loaded at RAM!\n";
-                    return pcType;
-                }
-            }
-        }
-        else
-        {
-            std::cout << "Your computer is not able to play Games, check your Hardware Specs" << std::endl;
-        }
-        return Hardware {};
-    }
+    Hardware addGamesToRAM(Hardware pcType, bool abilityToPlay);
+    void changeTaskAndSaveInfo();
 };
 
 Computer::Computer()
@@ -481,6 +501,12 @@ void Computer::Hardware::workAtOffice()
     
 } 
 
+void Computer::Hardware::changeScreenAndPlayGames()
+{
+    this->screen = 27;
+    this->playGames();
+}
+
 bool Computer::executePrograms(Hardware specs, std::string installedSoft)
 {
     if (installedSoft == "GTA")
@@ -513,6 +539,35 @@ void Computer::connectToPCs(bool LANavailable)
     {
         std::cout << "The computer is available to connect to LAN";
     }
+}
+
+Computer::Hardware Computer::addGamesToRAM(Hardware pcType, bool abilityToPlay)
+{
+    if (abilityToPlay == true)
+    {
+        int maxAllowedGames = 5;
+        while(pcType.gamesAtRAM < maxAllowedGames)
+        {
+            ++pcType.gamesAtRAM;
+            std::cout << "Games loaded at RAM: " << pcType.gamesAtRAM << std::endl;
+            if (pcType.gamesAtRAM >= maxAllowedGames)
+            {
+                std::cout << "Max. Games Loaded at RAM!\n";
+                return pcType;
+            }
+        }
+    }
+    else
+    {
+        std::cout << "Your computer is not able to play Games, check your Hardware Specs" << std::endl;
+    }
+    return Hardware {};
+}
+
+void Computer::changeTaskAndSaveInfo()
+{
+    this->execTask = 22;
+    this->saveInfo();
 }
 
 //new UDT 4:
@@ -578,6 +633,49 @@ void Projects::calculateResearchInvestment(University univName, University::Prof
     std::cout << "This semester were invested on Research $ " << investment << std::endl;
 }
 
+//Free Functions used for 'This' practice
+void thisMarket()
+{
+    Market m;
+    m.changeStaffAndinventory();
+}
+
+void thisMarketCustomer()
+{
+    Market::Customer c;
+    c.changeProdAndNumCust();
+}
+
+void thisUniversity()
+{
+    University u;
+    u.changeIncomeAndTeachSt();
+}
+
+void thisUniversityProfessor()
+{
+    University::Professor p;
+    p.changeNameAndSubscribedSt();
+}
+
+void thisUniversityStudent()
+{
+    University::Student s;
+    s.changeHoursAndStudyTime();
+}
+
+void thisComputer()
+{
+    Computer c;
+    c.changeTaskAndSaveInfo();
+}
+
+void thisComputerHardware()
+{
+    Computer::Hardware h;
+    h.changeScreenAndPlayGames();
+}
+
 /*
  MAKE SURE YOU ARE NOT ON THE MASTER BRANCH
 
@@ -627,10 +725,11 @@ int main()
     engineeringResearch.calculateUniversityRanking(programmingSchoolUniversity, joseph, frank);
     engineeringResearch.calculateResearchInvestment(programmingSchoolUniversity, joseph);
 
-    // 'This' practice
-    std::cout << "Market variable call superStarMarket.numProdLocalInv = " << superStarMarket.numProdLocalInv << std::endl;
+    // 'This' practice step 1
+    std::cout << "Market variable call superStarMarket.numPeopleWorkingAtStore = " << superStarMarket.numPeopleWorkingAtStore << std::endl;
+    //std::cout << "Market variable call m.numProdLocalInv = " <<  << std::endl;
 
-    std::cout << "Market function call superStarMarket.thisPracticeFunction() = " << superStarMarket.thisPracticeFunction() << std::endl;
+    std::cout << "Market function call superStarMarket.adjustInventary(carl) = " << superStarMarket.adjustInventary(carl) << std::endl;
     
     std::cout << "Market::Customer variable call carl.productsToOrder = " << carl.productsToOrder << std::endl;
     
@@ -648,13 +747,17 @@ int main()
 
     std::cout << "University::Student function call frank.computeWeekStudyTime()  = " << frank.computeWeekStudyTime() << std::endl;
     
-    std::cout << "Computer funtion call gamingPC.()  = " << gamingPC.execTask << std::endl;
+    std::cout << "Computer variable call gamingPC.execTask  = " << gamingPC.execTask << std::endl;
 
-    std::cout << "Computer variable call gamingPC.saveInfo()  = " << gamingPC.saveInfo() << std::endl;
+    std::cout << "Computer function call gamingPC.saveInfo()  = " << gamingPC.saveInfo() << std::endl;
     
     std::cout << "Computer::Hardware variable call highSpecs.screen = " << highSpecs.screen << std::endl;
     
     std::cout << "Computer::Hardware function call highSpecs.playGames() = " << highSpecs.playGames() << std::endl;
+
+    // 'This' practice step 2
+    
+    
     
     std::cout << "good to go!" << std::endl;
 }
