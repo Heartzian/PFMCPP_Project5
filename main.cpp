@@ -111,7 +111,8 @@ struct Market
         void calculateOrderPrice(int breakfastProds, int morningBreakProds, int lunchProds, int coffeeBreakProds, int dinnerProds); 
         void orderProducts(bool deliveryRequired = true);
         int countNumberCustomers(int numberDays);
-        void changeProdAndNumCust();
+        //void changeProdAndNumCust();
+        void thisMarketCustomer();
     };
 
     Customer phillip;
@@ -119,7 +120,8 @@ struct Market
     void sellProducts(Customer customerName);
     double adjustInventary(Customer customerName);
     Customer countNoInventoryProducts(int maxAllowed); 
-    void changeStaffAndinventory();
+    //void changeStaffAndinventory();
+    void thisMarket();
 };
 
 Market::Market()
@@ -221,7 +223,7 @@ double Market::adjustInventary(Customer customerName)
     return numProdLocalInv;
 }
 
-void Market::changeStaffAndinventory()
+/*void Market::changeStaffAndinventory()
 {
     this->numPeopleWorkingAtStore -= 1;
     this->adjustInventary(phillip);
@@ -231,13 +233,8 @@ void Market::Customer::changeProdAndNumCust()
 {
     this->productsToOrder = 20;
     this->countNumberCustomers(3);
-}
-
-/*int Market::changeInvAndSales(int newValue)
-{
-    this->numProdLocalInv -= newValue;
-    return 0;
 }*/
+
 
 //copied UDT 2:
 struct University
@@ -269,7 +266,8 @@ struct University
                                      float food = 550,
                                      float fun = 120, 
                                      float other = 150);
-        void changeNameAndSubscribedSt();
+        //void changeNameAndSubscribedSt();
+        void thisUniversityProfessor();
     };
 
     struct Student
@@ -294,7 +292,8 @@ struct University
         void computeSemestralAbsences();
         void displayStudentInfo(Student studentName);
         void subscribeCourse(Student studentName, Professor professorName);
-        void changeHoursAndStudyTime();
+        //void changeHoursAndStudyTime();
+        void thisUniversityStudent();
     }; 
 
     float teachStudents();  
@@ -305,7 +304,8 @@ struct University
                               std::string category = "Arts",
                               std::string activity = "Music Museum Visit"); 
     Student calculatePresentations(Student studentNick);
-    void changeIncomeAndTeachSt();
+    //void changeIncomeAndTeachSt();
+    void thisUniversity();
 };
 
 University::University()
@@ -340,11 +340,11 @@ float University::Professor::computeMonthlyExpenses(float rent,
     return rent + food + fun + other;
 }
 
-void University::Professor::changeNameAndSubscribedSt()
+/*void University::Professor::changeNameAndSubscribedSt()
 {
     this->professorName = "Joseph A. Stern";
     this->checkSubscribedStudents();
-}
+}*/
 
 double University::Student::computeWeekStudyTime()
 {
@@ -369,11 +369,11 @@ void University::Student::subscribeCourse(Student studentNick, Professor profess
     std::cout << "Dear " << studentNick.studentName << " you've successfully subscribed the assignature " << studentNick.courseName << ". Which will have Professor " << professorNick.professorName << " as Main Professor for this class.\n" << std::endl;
 }
 
-void University::Student::changeHoursAndStudyTime()
+/*void University::Student::changeHoursAndStudyTime()
 {
     this->weeklyPresentialStudyHours += 10;
     this->computeWeekStudyTime();
-}
+}*/
 
 float University::teachStudents() 
 {
@@ -413,11 +413,11 @@ University::Student University::calculatePresentations(Student studentNick)
     return Student {};
 }
 
-void University::changeIncomeAndTeachSt()
+/*void University::changeIncomeAndTeachSt()
 {
     this->semIncome += 25;
     this->teachStudents();
-}
+}*/
 
 //copied UDT 3:
 struct Computer
@@ -450,14 +450,16 @@ struct Computer
         std::string playGames(); 
         void trainAI(); 
         void workAtOffice(); 
-        void changeScreenAndPlayGames();
+        //void changeScreenAndPlayGames();
+        void thisComputerHardware();
     };
 
     bool executePrograms(Hardware specs, std::string installedSoft);  
     std::string saveInfo(bool diskAvailable = true); 
     void connectToPCs(bool LANavailable = true);
     Hardware addGamesToRAM(Hardware pcType, bool abilityToPlay);
-    void changeTaskAndSaveInfo();
+    //void changeTaskAndSaveInfo();
+    void thisComputer();
 };
 
 Computer::Computer()
@@ -501,11 +503,11 @@ void Computer::Hardware::workAtOffice()
     
 } 
 
-void Computer::Hardware::changeScreenAndPlayGames()
+/*void Computer::Hardware::changeScreenAndPlayGames()
 {
     this->screen = 27;
     this->playGames();
-}
+}*/
 
 bool Computer::executePrograms(Hardware specs, std::string installedSoft)
 {
@@ -564,11 +566,11 @@ Computer::Hardware Computer::addGamesToRAM(Hardware pcType, bool abilityToPlay)
     return Hardware {};
 }
 
-void Computer::changeTaskAndSaveInfo()
+/*void Computer::changeTaskAndSaveInfo()
 {
     this->execTask = 22;
     this->saveInfo();
-}
+}*/
 
 //new UDT 4:
 struct Marketing
@@ -634,46 +636,54 @@ void Projects::calculateResearchInvestment(University univName, University::Prof
 }
 
 //Free Functions used for 'This' practice
-void thisMarket()
+
+void Market::thisMarket()
 {
-    Market m;
-    m.changeStaffAndinventory();
+    std::cout << "Market variable call numPeopleWorkingAtStore = " << this->numPeopleWorkingAtStore << std::endl;
+
+    std::cout << "Market function call adjustInventary() = " << this->adjustInventary(phillip) << std::endl;
 }
 
-void thisMarketCustomer()
+void Market::Customer::thisMarketCustomer()
 {
-    Market::Customer c;
-    c.changeProdAndNumCust();
+    std::cout << "Market::Customer variable call productsToOrder = " << this->productsToOrder << std::endl;
+    
+    std::cout << "Market::Customer function call countNumberCustomers() = " << this->countNumberCustomers(3) << std::endl;
 }
 
-void thisUniversity()
+void University::thisUniversity()
 {
-    University u;
-    u.changeIncomeAndTeachSt();
+    std::cout << "University variable call semIncome = " << this->numClassrooms << std::endl;
+
+    std::cout << "University function call teachStudents() = " << this->teachStudents() << std::endl;
 }
 
-void thisUniversityProfessor()
+void University::Professor::thisUniversityProfessor()
 {
-    University::Professor p;
-    p.changeNameAndSubscribedSt();
+    std::cout << "University::Professor variable call professorName  = " << this->professorName << std::endl;
+
+    std::cout << "University::Professor function call checkSubscribedStudents()  = " << this->checkSubscribedStudents() << std::endl;
 }
 
-void thisUniversityStudent()
+void University::Student::thisUniversityStudent()
 {
-    University::Student s;
-    s.changeHoursAndStudyTime();
+    std::cout << "University::Student variable call weeklyResearchStudyHours  = " << this->weeklyResearchStudyHours << std::endl;
+
+    std::cout << "University::Student function call computeWeekStudyTime()  = " << this->computeWeekStudyTime() << std::endl;
 }
 
-void thisComputer()
+void Computer::thisComputer()
 {
-    Computer c;
-    c.changeTaskAndSaveInfo();
+    std::cout << "Computer variable call execTask  = " << this->execTask << std::endl;
+
+    std::cout << "Computer function call saveInfo()  = " << this->saveInfo() << std::endl;
 }
 
-void thisComputerHardware()
+void Computer::Hardware::thisComputerHardware()
 {
-    Computer::Hardware h;
-    h.changeScreenAndPlayGames();
+    std::cout << "Computer::Hardware variable call screen = " << this->screen << std::endl;
+    
+    std::cout << "Computer::Hardware function call playGames() = " << this->playGames() << std::endl;
 }
 
 /*
@@ -725,39 +735,69 @@ int main()
     engineeringResearch.calculateUniversityRanking(programmingSchoolUniversity, joseph, frank);
     engineeringResearch.calculateResearchInvestment(programmingSchoolUniversity, joseph);
 
-    // 'This' practice step 1
-    std::cout << "Market variable call superStarMarket.numPeopleWorkingAtStore = " << superStarMarket.numPeopleWorkingAtStore << std::endl;
-    //std::cout << "Market variable call m.numProdLocalInv = " <<  << std::endl;
+    // 'This' practice 
+    
+    Market m;
+    
+    std::cout << "Market variable call numPeopleWorkingAtStore = " << m.numPeopleWorkingAtStore << std::endl;
 
-    std::cout << "Market function call superStarMarket.adjustInventary(carl) = " << superStarMarket.adjustInventary(carl) << std::endl;
+    std::cout << "Market function call adjustInventary() = " << m.adjustInventary(carl) << std::endl;
     
-    std::cout << "Market::Customer variable call carl.productsToOrder = " << carl.productsToOrder << std::endl;
-    
-    std::cout << "Market::Customer function call carl.countNumberCustomers() = " << carl.countNumberCustomers(3) << std::endl;
-    
-    std::cout << "University variable call programmingSchoolUniversity.semIncome = " << programmingSchoolUniversity.numClassrooms << std::endl;
+    m.thisMarket();
 
-    std::cout << "University function call programmingSchoolUniversity.teachStudents() = " << programmingSchoolUniversity.teachStudents() << std::endl;
     
-    std::cout << "University::Professor variable call joseph.professorName  = " << joseph.professorName << std::endl;
+    Market::Customer c;
 
-    std::cout << "University::Professor function call joseph.checkSubscribedStudents()  = " << joseph.checkSubscribedStudents() << std::endl;
+    std::cout << "Market::Customer variable call productsToOrder = " << c.productsToOrder << std::endl;
     
-    std::cout << "University::Student variable call frank.weeklyResearchStudyHours  = " << frank.weeklyResearchStudyHours << std::endl;
+    std::cout << "Market::Customer function call countNumberCustomers() = " << c.countNumberCustomers(3) << std::endl;
+    
+    c.thisMarketCustomer();
 
-    std::cout << "University::Student function call frank.computeWeekStudyTime()  = " << frank.computeWeekStudyTime() << std::endl;
     
-    std::cout << "Computer variable call gamingPC.execTask  = " << gamingPC.execTask << std::endl;
+    University u;
 
-    std::cout << "Computer function call gamingPC.saveInfo()  = " << gamingPC.saveInfo() << std::endl;
-    
-    std::cout << "Computer::Hardware variable call highSpecs.screen = " << highSpecs.screen << std::endl;
-    
-    std::cout << "Computer::Hardware function call highSpecs.playGames() = " << highSpecs.playGames() << std::endl;
+    std::cout << "University variable call semIncome = " << u.numClassrooms << std::endl;
 
-    // 'This' practice step 2
+    std::cout << "University function call teachStudents() = " << u.teachStudents() << std::endl;
     
+    u.thisUniversity();
+
     
+    University::Professor p;
+
+    std::cout << "University::Professor variable call professorName  = " << p.professorName << std::endl;
+
+    std::cout << "University::Professor function call checkSubscribedStudents()  = " << p.checkSubscribedStudents() << std::endl;
+    
+    p.thisUniversityProfessor();
+
+    
+    University::Student s;
+
+    std::cout << "University::Student variable call weeklyResearchStudyHours  = " << s.weeklyResearchStudyHours << std::endl;
+
+    std::cout << "University::Student function call computeWeekStudyTime()  = " << s.computeWeekStudyTime() << std::endl;
+    
+    s.thisUniversityStudent();
+
+    
+    Computer pc;
+
+    std::cout << "Computer variable call execTask  = " << pc.execTask << std::endl;
+
+    std::cout << "Computer function call saveInfo()  = " << pc.saveInfo() << std::endl;
+    
+    pc.thisComputer();
+    
+
+    Computer::Hardware hw;
+
+    std::cout << "Computer::Hardware variable call screen = " << hw.screen << std::endl;
+    
+    std::cout << "Computer::Hardware function call playGames() = " << hw.playGames() << std::endl;
+    
+    hw.thisComputerHardware();    
     
     std::cout << "good to go!" << std::endl;
 }
