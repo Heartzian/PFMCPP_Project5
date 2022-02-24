@@ -112,7 +112,7 @@ struct Market
         void orderProducts(bool deliveryRequired = true);
         int countNumberCustomers(int numberDays);
         //void changeProdAndNumCust();
-        void thisMarketCustomer();
+        void callMarketCustomerVarFunct();
     };
 
     Customer phillip;
@@ -121,7 +121,7 @@ struct Market
     double adjustInventary(Customer customerName);
     Customer countNoInventoryProducts(int maxAllowed); 
     //void changeStaffAndinventory();
-    void thisMarket();
+    void callMarketVarFunct();
 };
 
 Market::Market()
@@ -267,7 +267,7 @@ struct University
                                      float fun = 120, 
                                      float other = 150);
         //void changeNameAndSubscribedSt();
-        void thisUniversityProfessor();
+        void callUniversityProfessorVarFunct();
     };
 
     struct Student
@@ -293,7 +293,7 @@ struct University
         void displayStudentInfo(Student studentName);
         void subscribeCourse(Student studentName, Professor professorName);
         //void changeHoursAndStudyTime();
-        void thisUniversityStudent();
+        void callUniversityStudentVarFunct();
     }; 
 
     float teachStudents();  
@@ -305,7 +305,7 @@ struct University
                               std::string activity = "Music Museum Visit"); 
     Student calculatePresentations(Student studentNick);
     //void changeIncomeAndTeachSt();
-    void thisUniversity();
+    void callUniversityVarFunct();
 };
 
 University::University()
@@ -451,7 +451,7 @@ struct Computer
         void trainAI(); 
         void workAtOffice(); 
         //void changeScreenAndPlayGames();
-        void thisComputerHardware();
+        void callComputerHardwareVarFunct();
     };
 
     bool executePrograms(Hardware specs, std::string installedSoft);  
@@ -459,7 +459,7 @@ struct Computer
     void connectToPCs(bool LANavailable = true);
     Hardware addGamesToRAM(Hardware pcType, bool abilityToPlay);
     //void changeTaskAndSaveInfo();
-    void thisComputer();
+    void callComputerVarFunct();
 };
 
 Computer::Computer()
@@ -637,49 +637,49 @@ void Projects::calculateResearchInvestment(University univName, University::Prof
 
 //Free Functions used for 'This' practice
 
-void Market::thisMarket()
+void Market::callMarketVarFunct()
 {
     std::cout << "Market variable call numPeopleWorkingAtStore = " << this->numPeopleWorkingAtStore << std::endl;
 
     std::cout << "Market function call adjustInventary() = " << this->adjustInventary(phillip) << std::endl;
 }
 
-void Market::Customer::thisMarketCustomer()
+void Market::Customer::callMarketCustomerVarFunct()
 {
     std::cout << "Market::Customer variable call productsToOrder = " << this->productsToOrder << std::endl;
     
     std::cout << "Market::Customer function call countNumberCustomers() = " << this->countNumberCustomers(3) << std::endl;
 }
 
-void University::thisUniversity()
+void University::callUniversityVarFunct()
 {
     std::cout << "University variable call semIncome = " << this->numClassrooms << std::endl;
 
     std::cout << "University function call teachStudents() = " << this->teachStudents() << std::endl;
 }
 
-void University::Professor::thisUniversityProfessor()
+void University::Professor::callUniversityProfessorVarFunct()
 {
     std::cout << "University::Professor variable call professorName  = " << this->professorName << std::endl;
 
     std::cout << "University::Professor function call checkSubscribedStudents()  = " << this->checkSubscribedStudents() << std::endl;
 }
 
-void University::Student::thisUniversityStudent()
+void University::Student::callUniversityStudentVarFunct()
 {
     std::cout << "University::Student variable call weeklyResearchStudyHours  = " << this->weeklyResearchStudyHours << std::endl;
 
     std::cout << "University::Student function call computeWeekStudyTime()  = " << this->computeWeekStudyTime() << std::endl;
 }
 
-void Computer::thisComputer()
+void Computer::callComputerVarFunct()
 {
     std::cout << "Computer variable call execTask  = " << this->execTask << std::endl;
 
     std::cout << "Computer function call saveInfo()  = " << this->saveInfo() << std::endl;
 }
 
-void Computer::Hardware::thisComputerHardware()
+void Computer::Hardware::callComputerHardwareVarFunct()
 {
     std::cout << "Computer::Hardware variable call screen = " << this->screen << std::endl;
     
@@ -743,7 +743,7 @@ int main()
 
     std::cout << "Market function call adjustInventary() = " << m.adjustInventary(carl) << std::endl;
     
-    m.thisMarket();
+    m.callMarketVarFunct();
 
     
     Market::Customer c;
@@ -752,7 +752,7 @@ int main()
     
     std::cout << "Market::Customer function call countNumberCustomers() = " << c.countNumberCustomers(3) << std::endl;
     
-    c.thisMarketCustomer();
+    c.callMarketCustomerVarFunct();
 
     
     University u;
@@ -761,7 +761,7 @@ int main()
 
     std::cout << "University function call teachStudents() = " << u.teachStudents() << std::endl;
     
-    u.thisUniversity();
+    u.callUniversityVarFunct();
 
     
     University::Professor p;
@@ -770,7 +770,7 @@ int main()
 
     std::cout << "University::Professor function call checkSubscribedStudents()  = " << p.checkSubscribedStudents() << std::endl;
     
-    p.thisUniversityProfessor();
+    p.callUniversityProfessorVarFunct();
 
     
     University::Student s;
@@ -779,7 +779,7 @@ int main()
 
     std::cout << "University::Student function call computeWeekStudyTime()  = " << s.computeWeekStudyTime() << std::endl;
     
-    s.thisUniversityStudent();
+    s.callUniversityStudentVarFunct();
 
     
     Computer pc;
@@ -788,7 +788,7 @@ int main()
 
     std::cout << "Computer function call saveInfo()  = " << pc.saveInfo() << std::endl;
     
-    pc.thisComputer();
+    pc.callComputerVarFunct();
     
 
     Computer::Hardware hw;
@@ -797,7 +797,7 @@ int main()
     
     std::cout << "Computer::Hardware function call playGames() = " << hw.playGames() << std::endl;
     
-    hw.thisComputerHardware();    
+    hw.callComputerHardwareVarFunct();    
     
     std::cout << "good to go!" << std::endl;
 }
