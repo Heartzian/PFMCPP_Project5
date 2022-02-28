@@ -82,6 +82,7 @@ void Axe::aConstMemberFunction() const { }
 
 // copied UDT 1:
 #include<iostream>
+#include<LeakedObjectDetector.h>
 
 struct Market
 {
@@ -117,6 +118,7 @@ struct Market
         int countNumberCustomers(int numberDays);
         //void changeProdAndNumCust();
         void callMarketCustomerVarFunct();
+        JUCE_LEAK_DETECTOR(Customer);
     };
 
     Customer phillip;
@@ -126,6 +128,7 @@ struct Market
     Customer countNoInventoryProducts(int maxAllowed); 
     //void changeStaffAndinventory();
     void callMarketVarFunct();
+    JUCE_LEAK_DETECTOR(Market);
 };
 
 Market::Market()
@@ -272,6 +275,7 @@ struct University
                                      float other = 150);
         //void changeNameAndSubscribedSt();
         void callUniversityProfessorVarFunct();
+        JUCE_LEAK_DETECTOR(Professor);
     };
 
     struct Student
@@ -298,6 +302,7 @@ struct University
         void subscribeCourse(Student studentName, Professor professorName);
         //void changeHoursAndStudyTime();
         void callUniversityStudentVarFunct();
+        JUCE_LEAK_DETECTOR(Student);
     }; 
 
     float teachStudents();  
@@ -310,6 +315,7 @@ struct University
     Student calculatePresentations(Student studentNick);
     //void changeIncomeAndTeachSt();
     void callUniversityVarFunct();
+    JUCE_LEAK_DETECTOR(University);
 };
 
 University::University()
@@ -456,6 +462,7 @@ struct Computer
         void workAtOffice(); 
         //void changeScreenAndPlayGames();
         void callComputerHardwareVarFunct();
+        JUCE_LEAK_DETECTOR(Hardware);
     };
 
     bool executePrograms(Hardware specs, std::string installedSoft);  
@@ -464,6 +471,7 @@ struct Computer
     Hardware addGamesToRAM(Hardware pcType, bool abilityToPlay);
     //void changeTaskAndSaveInfo();
     void callComputerVarFunct();
+    JUCE_LEAK_DETECTOR(Computer);
 };
 
 Computer::Computer()
@@ -586,6 +594,7 @@ struct Marketing
 
     void calculateExpensesRate(Market marketName, int planningDays);
     void calculateRentability(Market marketName, int promotionDays, int numberCustomers);
+    JUCE_LEAK_DETECTOR(Marketing);
 };
 
 Marketing::Marketing(){}
@@ -619,6 +628,7 @@ struct Projects
 
     void calculateUniversityRanking(University universityName, University::Professor professorName, University::Student studentName);
     void calculateResearchInvestment(University univName, University::Professor professorName);
+    JUCE_LEAK_DETECTOR(Projects);
 };
 
 Projects::Projects() {}
