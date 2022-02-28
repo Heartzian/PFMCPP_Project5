@@ -669,27 +669,38 @@ struct Marketing
     Marketing();
     ~Marketing() {std::cout << "Marketing Destructor\n";}
 
-    void calculateExpensesRate(Market marketName, int planningDays);
-    void calculateRentability(Market marketName, int promotionDays, int numberCustomers);
+    void calculateExpensesRate(Market* marketName, int planningDays);
+    void calculateRentability(Market* marketName, int promotionDays, int numberCustomers);
     //JUCE_LEAK_DETECTOR(Marketing)
+};
+
+struct MarketingWrapper
+{
+    MarketingWrapper( Marketing* newMarketingPtr) : marketingPtr(newMarketingPtr) { }
+    ~MarketingWrapper()
+    {
+        delete marketingPtr;
+    }
+
+    Marketing* marketingPtr = nullptr;
 };
 
 Marketing::Marketing(){}
 
-void Marketing::calculateExpensesRate(Market marketName, int planningDays)
+void Marketing::calculateExpensesRate(Market* marketName, int planningDays)
 {
-    double dailyIndirectExpenses = marketName.dailyBasicUtilitiesFee; 
-    double dailyDirectExpenses = marketName.numPeopleWorkingAtStore * 5;
+    double dailyIndirectExpenses = marketName->dailyBasicUtilitiesFee; 
+    double dailyDirectExpenses = marketName->numPeopleWorkingAtStore * 5;
     double directExpenses = dailyDirectExpenses * planningDays;
     double indirectExpenses = dailyIndirectExpenses * planningDays;
     double generalExpensesRate = (directExpenses / indirectExpenses) * 100;
     std::cout << "Your New Product Marketing General Expenses Rate is " << generalExpensesRate << "%\n" << std::endl;
 }
 
-void Marketing::calculateRentability(Market marketName, int promotionDays, int numberCustomers = 0)
+void Marketing::calculateRentability(Market* marketName, int promotionDays, int numberCustomers = 0)
 {
-    double totalProfit = marketName.dailyProfit * numberCustomers * promotionDays;
-    double totalIncome = marketName.dailyIncome * (numberCustomers * 2.75) * promotionDays;
+    double totalProfit = marketName->dailyProfit * numberCustomers * promotionDays;
+    double totalIncome = marketName->dailyIncome * (numberCustomers * 2.75) * promotionDays;
     double rentability = ((totalProfit * promotionDays) / (totalIncome * promotionDays)) * 100;
     std::cout << "Your New Product Marketing Rentability is " << rentability << "%\n" << std::endl;;
 }
@@ -703,25 +714,36 @@ struct Projects
     Projects();
     ~Projects() {std::cout << "Projects Destructor\n";}
 
-    void calculateUniversityRanking(University universityName, University::Professor professorName, University::Student studentName);
-    void calculateResearchInvestment(University univName, University::Professor professorName);
+    void calculateUniversityRanking(University* universityName, University::Professor* professorName, University::Student* studentName);
+    void calculateResearchInvestment(University* univName, University::Professor* professorName);
     //JUCE_LEAK_DETECTOR(Projects)
+};
+
+struct ProjectsWrapper
+{
+    ProjectsWrapper( Projects* newProjectsPtr) : projectsPtr(newProjectsPtr) { }
+    ~ProjectsWrapper()
+    {
+        delete projectsPtr;
+    }
+
+    Projects* projectsPtr = nullptr;
 };
 
 Projects::Projects() {}
 
-void Projects::calculateUniversityRanking(University univName, University::Professor professorName, University::Student studentName)
+void Projects::calculateUniversityRanking(University* univName, University::Professor* professorName, University::Student* studentName)
 {
-    int x = professorName.checkSubscribedStudents();
-    auto y = univName.calculatePresentations(&studentName);
+    int x = professorName->checkSubscribedStudents();
+    auto y = univName->calculatePresentations(studentName);
     std::cout << "The University ranking points are " << y.numberPresentations * x << "\n" << std::endl;
 }
 
-void Projects::calculateResearchInvestment(University univName, University::Professor professorName)
+void Projects::calculateResearchInvestment(University* univName, University::Professor* professorName)
 {
-    int x = professorName.checkSubscribedStudents();
-    univName.semIncome = x * 30'000;
-    float investment = univName.semIncome - (univName.numProfessors * 15'000 * 6);
+    int x = professorName->checkSubscribedStudents();
+    univName->semIncome = x * 30'000;
+    float investment = univName->semIncome - (univName->numProfessors * 15'000 * 6);
     
     std::cout << "This semester were invested on Research $ " << investment << std::endl;
 }
@@ -818,77 +840,77 @@ int main()
     auto canPlay = gamingPC.computerPtr->executePrograms(highSpecs.hardwarePtr, "GTA");
     gamingPC.computerPtr->addGamesToRAM(highSpecs.hardwarePtr, canPlay);
 
-    /*Marketing newProductLaunch; //Line 487
-    newProductLaunch.calculateExpensesRate(superStarMarket, 18);
-    newProductLaunch.calculateRentability(superStarMarket, 45, customers);
+    MarketingWrapper newProductLaunch(new Marketing()); //Line 487
+    newProductLaunch.marketingPtr->calculateExpensesRate(superStarMarket.marketPtr, 18);
+    newProductLaunch.marketingPtr->calculateRentability(superStarMarket.marketPtr, 45, customers);
     
-    Projects engineeringResearch; //Line 530
-    engineeringResearch.calculateUniversityRanking(programmingSchoolUniversity, joseph, frank);
-    engineeringResearch.calculateResearchInvestment(programmingSchoolUniversity, joseph);
+    ProjectsWrapper engineeringResearch(new Projects()); //Line 530
+    engineeringResearch.projectsPtr->calculateUniversityRanking(programmingSchoolUniversity.universityPtr, joseph.professorPtr, frank.studentPtr);
+    engineeringResearch.projectsPtr->calculateResearchInvestment(programmingSchoolUniversity.universityPtr, joseph.professorPtr);
 
     // 'This' practice 
     
-    Market m;
+    MarketWrapper m(new Market());
     
-    std::cout << "Market variable call numPeopleWorkingAtStore = " << m.numPeopleWorkingAtStore << std::endl;
+    std::cout << "Market variable call numPeopleWorkingAtStore = " << m.marketPtr->numPeopleWorkingAtStore << std::endl;
 
-    std::cout << "Market function call adjustInventary() = " << m.adjustInventary(carl) << std::endl;
+    std::cout << "Market function call adjustInventary() = " << m.marketPtr->adjustInventary(carl.customerPtr) << std::endl;
     
-    m.callMarketVarFunct();
-
-    
-    Market::Customer c;
-
-    std::cout << "Market::Customer variable call productsToOrder = " << c.productsToOrder << std::endl;
-    
-    std::cout << "Market::Customer function call countNumberCustomers() = " << c.countNumberCustomers(3) << std::endl;
-    
-    c.callMarketCustomerVarFunct();
+    m.marketPtr->callMarketVarFunct();
 
     
-    University u;
+    CustomerWrapper c(new Market::Customer()) ;
 
-    std::cout << "University variable call semIncome = " << u.numClassrooms << std::endl;
-
-    std::cout << "University function call teachStudents() = " << u.teachStudents() << std::endl;
+    std::cout << "Market::Customer variable call productsToOrder = " << c.customerPtr->productsToOrder << std::endl;
     
-    u.callUniversityVarFunct();
-
+    std::cout << "Market::Customer function call countNumberCustomers() = " << c.customerPtr->countNumberCustomers(3) << std::endl;
     
-    University::Professor p;
-
-    std::cout << "University::Professor variable call professorName  = " << p.professorName << std::endl;
-
-    std::cout << "University::Professor function call checkSubscribedStudents()  = " << p.checkSubscribedStudents() << std::endl;
-    
-    p.callUniversityProfessorVarFunct();
+    c.customerPtr->callMarketCustomerVarFunct();
 
     
-    University::Student s;
+    UniversityWrapper u(new University());
 
-    std::cout << "University::Student variable call weeklyResearchStudyHours  = " << s.weeklyResearchStudyHours << std::endl;
+    std::cout << "University variable call semIncome = " << u.universityPtr->numClassrooms << std::endl;
 
-    std::cout << "University::Student function call computeWeekStudyTime()  = " << s.computeWeekStudyTime() << std::endl;
+    std::cout << "University function call teachStudents() = " << u.universityPtr->teachStudents() << std::endl;
     
-    s.callUniversityStudentVarFunct();
+    u.universityPtr->callUniversityVarFunct();
 
     
-    Computer pc;
+    ProfessorWrapper p(new University::Professor());
 
-    std::cout << "Computer variable call execTask  = " << pc.execTask << std::endl;
+    std::cout << "University::Professor variable call professorName  = " << p.professorPtr->professorName << std::endl;
 
-    std::cout << "Computer function call saveInfo()  = " << pc.saveInfo() << std::endl;
+    std::cout << "University::Professor function call checkSubscribedStudents()  = " << p.professorPtr->checkSubscribedStudents() << std::endl;
     
-    pc.callComputerVarFunct();
+    p.professorPtr->callUniversityProfessorVarFunct();
+
+    
+    StudentWrapper s(new University::Student());
+
+    std::cout << "University::Student variable call weeklyResearchStudyHours  = " << s.studentPtr->weeklyResearchStudyHours << std::endl;
+
+    std::cout << "University::Student function call computeWeekStudyTime()  = " << s.studentPtr->computeWeekStudyTime() << std::endl;
+    
+    s.studentPtr->callUniversityStudentVarFunct();
+
+    
+    ComputerWrapper pc(new Computer());
+
+    std::cout << "Computer variable call execTask  = " << pc.computerPtr->execTask << std::endl;
+
+    std::cout << "Computer function call saveInfo()  = " << pc.computerPtr->saveInfo() << std::endl;
+    
+    pc.computerPtr->callComputerVarFunct();
     
 
-    Computer::Hardware hw;
+    HardwareWrapper hw(new Computer::Hardware());
 
-    std::cout << "Computer::Hardware variable call screen = " << hw.screen << std::endl;
+    std::cout << "Computer::Hardware variable call screen = " << hw.hardwarePtr->screen << std::endl;
     
-    std::cout << "Computer::Hardware function call playGames() = " << hw.playGames() << std::endl;
+    std::cout << "Computer::Hardware function call playGames() = " << hw.hardwarePtr->playGames() << std::endl;
     
-    hw.callComputerHardwareVarFunct();    
+    hw.hardwarePtr->callComputerHardwareVarFunct();    
     
-    std::cout << "good to go!" << std::endl;*/
+    std::cout << "good to go!" << std::endl;
 }
