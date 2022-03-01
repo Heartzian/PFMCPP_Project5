@@ -123,8 +123,8 @@ struct Market
 
     //Customer phillip;
 
-    void sellProducts(Customer* customerName);
-    double adjustInventary(Customer* customerName);
+    void sellProducts(Customer& customerName);
+    double adjustInventary(Customer& customerName);
     Customer countNoInventoryProducts(int maxAllowed); 
     //void changeStaffAndinventory();
     void callMarketVarFunct();
@@ -232,23 +232,23 @@ Market::Customer Market::countNoInventoryProducts(int maxAllowed)
     return Customer {};
 }
 
-void Market::sellProducts(Customer* customerNick) //carl in main()
+void Market::sellProducts(Customer& customerNick) //carl in main()
 { 
-    ++customerNick->visitsThisWeek;
-    if (customerNick->deliveryRequired == true)
+    ++customerNick.visitsThisWeek;
+    if (customerNick.deliveryRequired == true)
     {
         --numLogisticVehicles;
         --numPeopleWorkingAtStore;
     }
-    dailyIncome += customerNick->totalToPay;
+    dailyIncome += customerNick.totalToPay;
     dailyProfit = dailyIncome * 0.65;
 
-    std::cout << "Dear " << customerNick->customerName << ", you ordered " <<  customerNick->productsToOrder << " products, with a total cost of $" << customerNick->totalToPay << ", which will be Delivered by Tom." << " this week, you have come to our store " << customerNick->visitsThisWeek << " times, Thanks for buying with us!\n" << std::endl;
+    std::cout << "Dear " << customerNick.customerName << ", you ordered " <<  customerNick.productsToOrder << " products, with a total cost of $" << customerNick.totalToPay << ", which will be Delivered by Tom." << " this week, you have come to our store " << customerNick.visitsThisWeek << " times, Thanks for buying with us!\n" << std::endl;
 }
 
-double Market::adjustInventary(Customer* customerName)
+double Market::adjustInventary(Customer& customerName)
 {
-    numProdLocalInv -= customerName->productsToOrder;
+    numProdLocalInv -= customerName.productsToOrder;
     return numProdLocalInv;
 }
 
@@ -320,8 +320,8 @@ struct University
 
         double computeWeekStudyTime();
         void computeSemestralAbsences();
-        void displayStudentInfo(Student* studentName);
-        void subscribeCourse(Student* studentName, Professor* professorName);
+        void displayStudentInfo(Student& studentName);
+        void subscribeCourse(Student& studentName, Professor& professorName);
         //void changeHoursAndStudyTime();
         void callUniversityStudentVarFunct();
         JUCE_LEAK_DETECTOR(Student)
@@ -331,10 +331,10 @@ struct University
     void doResearch(std::string organization = "UCLA",
                     std::string department = "Chemistry",
                     std::string projectName = "influence of fertilizer on plant cultivation"); 
-    void doCulturalActivities(Student* name,
+    void doCulturalActivities(Student& name,
                               std::string category = "Arts",
                               std::string activity = "Music Museum Visit"); 
-    Student calculatePresentations(Student* studentNick);
+    Student calculatePresentations(Student& studentNick);
     //void changeIncomeAndTeachSt();
     void callUniversityVarFunct();
     JUCE_LEAK_DETECTOR(University)
@@ -424,14 +424,14 @@ void University::Student::computeSemestralAbsences()
     semestralAllowedAbsences = ((weeklyPresentialStudyHours * 16) * 0.1) / 3;
 }
 
-void University::Student::displayStudentInfo(Student* studentNick)
+void University::Student::displayStudentInfo(Student& studentNick)
 {
-    std::cout << "Dear " << studentNick->studentName << ". Welcome to study " << studentNick->career << ". This semester you chose " << studentNick->semestralCredits << " credits. You'll have " << studentNick->weeklyPresentialStudyHours << " weekly presential study hours. Please remember you can only have 10% of class absence, which in your case means " << studentNick->semestralAllowedAbsences << " hours per class. Enjoy your time!\n" << std::endl;
+    std::cout << "Dear " << studentNick.studentName << ". Welcome to study " << studentNick.career << ". This semester you chose " << studentNick.semestralCredits << " credits. You'll have " << studentNick.weeklyPresentialStudyHours << " weekly presential study hours. Please remember you can only have 10% of class absence, which in your case means " << studentNick.semestralAllowedAbsences << " hours per class. Enjoy your time!\n" << std::endl;
 }
 
-void University::Student::subscribeCourse(Student* studentNick, Professor* professorNick)
+void University::Student::subscribeCourse(Student& studentNick, Professor& professorNick)
 {
-    std::cout << "Dear " << studentNick->studentName << " you've successfully subscribed the assignature " << studentNick->courseName << ". Which will have Professor " << professorNick->professorName << " as Main Professor for this class.\n" << std::endl;
+    std::cout << "Dear " << studentNick.studentName << " you've successfully subscribed the assignature " << studentNick.courseName << ". Which will have Professor " << professorNick.professorName << " as Main Professor for this class.\n" << std::endl;
 }
 
 /*void University::Student::changeHoursAndStudyTime()
@@ -455,24 +455,24 @@ void University::doResearch(std::string organization,
     std::cout << "This semester the University do Collaborative Research with: " << organization << " from department " << department << " in the project named: " << projectName << std::endl;
 }
 
-void University::doCulturalActivities(Student* studentNick,
+void University::doCulturalActivities(Student& studentNick,
                                            std::string category,
                                            std::string activity)
 {
-    std::cout << "This semester the University performed a Cultural Activity with " << studentNick->studentName << " from " << studentNick->career << " which likes to " << studentNick->hobby << " in the category: " << category << " doing the activity " << activity << ".\n" << std::endl;
+    std::cout << "This semester the University performed a Cultural Activity with " << studentNick.studentName << " from " << studentNick.career << " which likes to " << studentNick.hobby << " in the category: " << category << " doing the activity " << activity << ".\n" << std::endl;
 }
 
-University::Student University::calculatePresentations(Student* studentNick)
+University::Student University::calculatePresentations(Student& studentNick)
 {
     //Student phil;
-    int totalPresentations = studentNick->semestralCredits * 2;
-    while (studentNick->numberPresentations < totalPresentations)
+    int totalPresentations = studentNick.semestralCredits * 2;
+    while (studentNick.numberPresentations < totalPresentations)
     {
-        studentNick->numberPresentations += 3;
-        std::cout << studentNick->studentName << " this semester your should present " << studentNick->numberPresentations << " presentations."<< std::endl;
-        if (studentNick->numberPresentations >= totalPresentations)
+        studentNick.numberPresentations += 3;
+        std::cout << studentNick.studentName << " this semester your should present " << studentNick.numberPresentations << " presentations."<< std::endl;
+        if (studentNick.numberPresentations >= totalPresentations)
         {
-            return *studentNick;
+            return studentNick;
         }
     }
     return Student {};
@@ -669,8 +669,8 @@ struct Marketing
     Marketing();
     ~Marketing() {std::cout << "Marketing Destructor\n";}
 
-    void calculateExpensesRate(Market* marketName, int planningDays);
-    void calculateRentability(Market* marketName, int promotionDays, int numberCustomers);
+    void calculateExpensesRate(Market& marketName, int planningDays);
+    void calculateRentability(Market& marketName, int promotionDays, int numberCustomers);
     JUCE_LEAK_DETECTOR(Marketing)
 };
 
@@ -687,20 +687,20 @@ struct MarketingWrapper
 
 Marketing::Marketing(){}
 
-void Marketing::calculateExpensesRate(Market* marketName, int planningDays)
+void Marketing::calculateExpensesRate(Market& marketName, int planningDays)
 {
-    double dailyIndirectExpenses = marketName->dailyBasicUtilitiesFee; 
-    double dailyDirectExpenses = marketName->numPeopleWorkingAtStore * 5;
+    double dailyIndirectExpenses = marketName.dailyBasicUtilitiesFee; 
+    double dailyDirectExpenses = marketName.numPeopleWorkingAtStore * 5;
     double directExpenses = dailyDirectExpenses * planningDays;
     double indirectExpenses = dailyIndirectExpenses * planningDays;
     double generalExpensesRate = (directExpenses / indirectExpenses) * 100;
     std::cout << "Your New Product Marketing General Expenses Rate is " << generalExpensesRate << "%\n" << std::endl;
 }
 
-void Marketing::calculateRentability(Market* marketName, int promotionDays, int numberCustomers = 0)
+void Marketing::calculateRentability(Market& marketName, int promotionDays, int numberCustomers = 0)
 {
-    double totalProfit = marketName->dailyProfit * numberCustomers * promotionDays;
-    double totalIncome = marketName->dailyIncome * (numberCustomers * 2.75) * promotionDays;
+    double totalProfit = marketName.dailyProfit * numberCustomers * promotionDays;
+    double totalIncome = marketName.dailyIncome * (numberCustomers * 2.75) * promotionDays;
     double rentability = ((totalProfit * promotionDays) / (totalIncome * promotionDays)) * 100;
     std::cout << "Your New Product Marketing Rentability is " << rentability << "%\n" << std::endl;;
 }
@@ -714,8 +714,8 @@ struct Projects
     Projects();
     ~Projects() {std::cout << "Projects Destructor\n";}
 
-    void calculateUniversityRanking(University* universityName, University::Professor* professorName, University::Student* studentName);
-    void calculateResearchInvestment(University* univName, University::Professor* professorName);
+    void calculateUniversityRanking(University& universityName, University::Professor& professorName, University::Student& studentName);
+    void calculateResearchInvestment(University& univName, University::Professor& professorName);
     JUCE_LEAK_DETECTOR(Projects)
 };
 
@@ -732,18 +732,18 @@ struct ProjectsWrapper
 
 Projects::Projects() {}
 
-void Projects::calculateUniversityRanking(University* univName, University::Professor* professorName, University::Student* studentName)
+void Projects::calculateUniversityRanking(University& univName, University::Professor& professorName, University::Student& studentName)
 {
-    int x = professorName->checkSubscribedStudents();
-    auto y = univName->calculatePresentations(studentName);
+    int x = professorName.checkSubscribedStudents();
+    auto y = univName.calculatePresentations(studentName);
     std::cout << "The University ranking points are " << y.numberPresentations * x << "\n" << std::endl;
 }
 
-void Projects::calculateResearchInvestment(University* univName, University::Professor* professorName)
+void Projects::calculateResearchInvestment(University& univName, University::Professor& professorName)
 {
-    int x = professorName->checkSubscribedStudents();
-    univName->semIncome = x * 30'000;
-    float investment = univName->semIncome - (univName->numProfessors * 15'000 * 6);
+    int x = professorName.checkSubscribedStudents();
+    univName.semIncome = x * 30'000;
+    float investment = univName.semIncome - (univName.numProfessors * 15'000 * 6);
     
     std::cout << "This semester were invested on Research $ " << investment << std::endl;
 }
@@ -821,8 +821,8 @@ int main()
     carl.customerPtr->calculateOrderPrice(); //Have options to select
     carl.customerPtr->orderProducts(true);
     auto customers = carl.customerPtr->countNumberCustomers(45); //
-    superStarMarket.marketPtr->sellProducts(carl.customerPtr);
-    superStarMarket.marketPtr->adjustInventary(carl.customerPtr);
+    superStarMarket.marketPtr->sellProducts(*carl.customerPtr);
+    superStarMarket.marketPtr->adjustInventary(*carl.customerPtr);
     auto custName = superStarMarket.marketPtr->countNoInventoryProducts(5);
 
     UniversityWrapper programmingSchoolUniversity(new University()); //Line 196
@@ -830,9 +830,9 @@ int main()
     StudentWrapper frank(new University::Student()); 
     frank.studentPtr->computeWeekStudyTime();
     frank.studentPtr->computeSemestralAbsences();
-    frank.studentPtr->displayStudentInfo(frank.studentPtr);
-    frank.studentPtr->subscribeCourse(frank.studentPtr, joseph.professorPtr);
-    auto studentName = programmingSchoolUniversity.universityPtr->calculatePresentations(frank.studentPtr);
+    frank.studentPtr->displayStudentInfo(*frank.studentPtr);
+    frank.studentPtr->subscribeCourse(*frank.studentPtr, *joseph.professorPtr);
+    auto studentName = programmingSchoolUniversity.universityPtr->calculatePresentations(*frank.studentPtr);
 
     ComputerWrapper gamingPC(new Computer()); //Line 343
     HardwareWrapper highSpecs(new Computer::Hardware());
@@ -841,12 +841,12 @@ int main()
     gamingPC.computerPtr->addGamesToRAM(highSpecs.hardwarePtr, canPlay);
 
     MarketingWrapper newProductLaunch(new Marketing()); //Line 487
-    newProductLaunch.marketingPtr->calculateExpensesRate(superStarMarket.marketPtr, 18);
-    newProductLaunch.marketingPtr->calculateRentability(superStarMarket.marketPtr, 45, customers);
+    newProductLaunch.marketingPtr->calculateExpensesRate(*superStarMarket.marketPtr, 18);
+    newProductLaunch.marketingPtr->calculateRentability(*superStarMarket.marketPtr, 45, customers);
     
     ProjectsWrapper engineeringResearch(new Projects()); //Line 530
-    engineeringResearch.projectsPtr->calculateUniversityRanking(programmingSchoolUniversity.universityPtr, joseph.professorPtr, frank.studentPtr);
-    engineeringResearch.projectsPtr->calculateResearchInvestment(programmingSchoolUniversity.universityPtr, joseph.professorPtr);
+    engineeringResearch.projectsPtr->calculateUniversityRanking(*programmingSchoolUniversity.universityPtr, *joseph.professorPtr, *frank.studentPtr);
+    engineeringResearch.projectsPtr->calculateResearchInvestment(*programmingSchoolUniversity.universityPtr, *joseph.professorPtr);
 
     // 'This' practice 
     
@@ -854,7 +854,7 @@ int main()
     
     std::cout << "Market variable call numPeopleWorkingAtStore = " << m.marketPtr->numPeopleWorkingAtStore << std::endl;
 
-    std::cout << "Market function call adjustInventary() = " << m.marketPtr->adjustInventary(carl.customerPtr) << std::endl;
+    std::cout << "Market function call adjustInventary() = " << m.marketPtr->adjustInventary(*carl.customerPtr) << std::endl;
     
     m.marketPtr->callMarketVarFunct();
 
