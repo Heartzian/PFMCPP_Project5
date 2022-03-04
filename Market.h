@@ -1,7 +1,6 @@
 #pragma once
 #include "LeakedObjectDetector.h"
 #include"Wrappers.h"
-# include"Market.cpp"
 
 struct Market
 {
