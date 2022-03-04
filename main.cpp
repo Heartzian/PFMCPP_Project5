@@ -89,8 +89,8 @@ int main()
     ComputerWrapper gamingPC(new Computer()); 
     HardwareWrapper highSpecs(new Computer::Hardware());
     highSpecs.hardwarePtr->playGames();
-    auto canPlay = gamingPC.computerPtr->executePrograms(highSpecs.hardwarePtr, "GTA");
-    gamingPC.computerPtr->addGamesToRAM(highSpecs.hardwarePtr, canPlay);
+    auto canPlay = gamingPC.computerPtr->executePrograms(*highSpecs.hardwarePtr, "GTA");
+    gamingPC.computerPtr->addGamesToRAM(*highSpecs.hardwarePtr, canPlay);
 
     MarketingWrapper newProductLaunch(new Marketing());
     newProductLaunch.marketingPtr->calculateExpensesRate(*superStarMarket.marketPtr, 18);

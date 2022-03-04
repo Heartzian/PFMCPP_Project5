@@ -36,10 +36,10 @@ struct Computer
         JUCE_LEAK_DETECTOR(Hardware)
     };
 
-    bool executePrograms(Hardware* specs, std::string installedSoft);  
+    bool executePrograms(Hardware& specs, std::string installedSoft);  
     std::string saveInfo(bool diskAvailable = true); 
     void connectToPCs(bool LANavailable = true);
-    Hardware addGamesToRAM(Hardware* pcType, bool abilityToPlay);
+    Hardware addGamesToRAM(Hardware& pcType, bool abilityToPlay);
     //void changeTaskAndSaveInfo();
     void callComputerVarFunct();
     JUCE_LEAK_DETECTOR(Computer)

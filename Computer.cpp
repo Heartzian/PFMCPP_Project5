@@ -3,12 +3,12 @@
 
 Computer::Computer()
 {
-    std::cout << "Computer being constructed!" << std::endl;
+    std::cout << "Computer being constructed!\n" << std::endl;
 }
 
 Computer::~Computer()
 {
-    std::cout << "Computer being destructed!" << std::endl;
+    std::cout << "Computer being destructed!\n" << std::endl;
 }
 
 Computer::Hardware::Hardware()
@@ -37,7 +37,6 @@ void Computer::Hardware::trainAI()
         //std::cout << "You can use this computer to train AI using" << softwareReq;
         canTrainAI = true;
     }
-    
 }
 
 void Computer::Hardware::workAtOffice()
@@ -47,14 +46,13 @@ void Computer::Hardware::workAtOffice()
         //std::cout << "You can use this computer to do " << mostlyUsedTask;
         canUseAtOffice = true;
     }
-    
 } 
 
-bool Computer::executePrograms(Hardware* specs, std::string installedSoft)
+bool Computer::executePrograms(Hardware& specs, std::string installedSoft)
 {
     if (installedSoft == "GTA")
     {
-        if (specs->canPlayGames == true)
+        if (specs.canPlayGames == true)
         {
             std::cout << "According to the given specs, this computer can be used to play Grand Theft Auto\n" << std::endl;
         }
@@ -63,7 +61,7 @@ bool Computer::executePrograms(Hardware* specs, std::string installedSoft)
             std::cout << "Sorry!! This computer can NOT be used to play Grand Theft Auto becasuse of the specs" << std::endl;
         }
     }
-    return specs->canPlayGames;
+    return specs.canPlayGames;
 }
 
 std::string Computer::saveInfo(bool diskAvailable)
@@ -73,7 +71,6 @@ std::string Computer::saveInfo(bool diskAvailable)
         canSaveInfo = true;
     }
     return "The file was saved";
-    
 }
 
 void Computer::connectToPCs(bool LANavailable)
@@ -84,19 +81,19 @@ void Computer::connectToPCs(bool LANavailable)
     }
 }
 
-Computer::Hardware Computer::addGamesToRAM(Hardware* pcType, bool abilityToPlay)
+Computer::Hardware Computer::addGamesToRAM(Hardware& pcType, bool abilityToPlay)
 {
     if (abilityToPlay == true)
     {
         int maxAllowedGames = 5;
-        while(pcType->gamesAtRAM < maxAllowedGames)
+        while(pcType.gamesAtRAM < maxAllowedGames)
         {
-            ++pcType->gamesAtRAM;
-            std::cout << "Games loaded at RAM: " << pcType->gamesAtRAM << std::endl;
-            if (pcType->gamesAtRAM >= maxAllowedGames)
+            ++pcType.gamesAtRAM;
+            std::cout << "Games loaded at RAM: " << pcType.gamesAtRAM << std::endl;
+            if (pcType.gamesAtRAM >= maxAllowedGames)
             {
                 std::cout << "Max. Games Loaded at RAM!\n";
-                return *pcType;
+                return pcType;
             }
         }
     }

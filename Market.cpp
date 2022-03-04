@@ -104,7 +104,7 @@ void Market::sellProducts(Customer& customerNick) //carl in main()
     std::cout << "Dear " << customerNick.customerName << ", you ordered " <<  customerNick.productsToOrder << " products, with a total cost of $" << customerNick.totalToPay << ", which will be Delivered by Tom." << " this week, you have come to our store " << customerNick.visitsThisWeek << " times, Thanks for buying with us!\n" << std::endl;
 }
 
-double Market::adjustInventary(Customer& customerName)
+double Market::adjustInventary(const Customer& customerName)
 {
     numProdLocalInv -= customerName.productsToOrder;
     return numProdLocalInv;

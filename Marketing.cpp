@@ -10,7 +10,7 @@ Marketing::~Marketing()
     std::cout << "Marketing being destructed!\n" << std::endl;
 }
 
-void Marketing::calculateExpensesRate(Market& marketName, int planningDays)
+void Marketing::calculateExpensesRate(const Market& marketName, int planningDays)
 {
     double dailyIndirectExpenses = marketName.dailyBasicUtilitiesFee; 
     double dailyDirectExpenses = marketName.numPeopleWorkingAtStore * 5;
@@ -20,7 +20,7 @@ void Marketing::calculateExpensesRate(Market& marketName, int planningDays)
     std::cout << "Your New Product Marketing General Expenses Rate is " << generalExpensesRate << "%\n" << std::endl;
 }
 
-void Marketing::calculateRentability(Market& marketName, int promotionDays, int numberCustomers = 0)
+void Marketing::calculateRentability(const Market& marketName, int promotionDays, int numberCustomers = 0)
 {
     double totalProfit = marketName.dailyProfit * numberCustomers * promotionDays;
     double totalIncome = marketName.dailyIncome * (numberCustomers * 2.75) * promotionDays;

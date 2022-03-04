@@ -3,22 +3,22 @@
 
 University::University()
 {
-    std::cout << "University being constructed!" << std::endl;
+    std::cout << "University being constructed!\n" << std::endl;
 }
 
 University::~University()
 {
-    std::cout << "University being destructed!" << std::endl;
+    std::cout << "University being destructed!\n" << std::endl;
 }
 
 University::Professor::Professor()
 {
-    std::cout << "University Professor being constructed!" << std::endl;
+    std::cout << "University Professor being constructed!\n" << std::endl;
 }
 
 University::Professor::~Professor()
 {
-    std::cout << "University Professor being destructed!" << std::endl;
+    std::cout << "University Professor being destructed!\n" << std::endl;
 }
 
 University::Student::Student()
@@ -61,12 +61,12 @@ void University::Student::computeSemestralAbsences()
     semestralAllowedAbsences = ((weeklyPresentialStudyHours * 16) * 0.1) / 3;
 }
 
-void University::Student::displayStudentInfo(Student& studentNick)
+void University::Student::displayStudentInfo(const Student& studentNick)
 {
     std::cout << "Dear " << studentNick.studentName << ". Welcome to study " << studentNick.career << ". This semester you chose " << studentNick.semestralCredits << " credits. You'll have " << studentNick.weeklyPresentialStudyHours << " weekly presential study hours. Please remember you can only have 10% of class absence, which in your case means " << studentNick.semestralAllowedAbsences << " hours per class. Enjoy your time!\n" << std::endl;
 }
 
-void University::Student::subscribeCourse(Student& studentNick, Professor& professorNick)
+void University::Student::subscribeCourse(const Student& studentNick, const Professor& professorNick)
 {
     std::cout << "Dear " << studentNick.studentName << " you've successfully subscribed the assignature " << studentNick.courseName << ". Which will have Professor " << professorNick.professorName << " as Main Professor for this class.\n" << std::endl;
 }
@@ -86,7 +86,7 @@ void University::doResearch(std::string organization,
     std::cout << "This semester the University do Collaborative Research with: " << organization << " from department " << department << " in the project named: " << projectName << std::endl;
 }
 
-void University::doCulturalActivities(Student& studentNick,
+void University::doCulturalActivities(const Student& studentNick,
                                            std::string category,
                                            std::string activity)
 {

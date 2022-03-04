@@ -2,13 +2,7 @@
 #include "Market.h"
 #include "University.h"
 #include "Computer.h"
-// struct Market; //that means you don't need to forward declare this type
-// struct Market::Customer; //you must include the header file where this is declared
-// struct University; //that means you don't need to forward declare this type
-// struct University::Professor; //you must include the header file where this is declared
-// struct University::Student; //you must include the header file where this is declared
-// struct Computer; //that means you don't need to forward declare this type
-// struct Computer::Hardware; //you must include the header file where this is declared
+
 struct Marketing; 
 struct Projects;
 

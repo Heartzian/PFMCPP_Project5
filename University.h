@@ -30,7 +30,6 @@ struct University
                                      float food = 550,
                                      float fun = 120, 
                                      float other = 150);
-        //void changeNameAndSubscribedSt();
         void callUniversityProfessorVarFunct();
         JUCE_LEAK_DETECTOR(Professor)
     };
@@ -55,9 +54,8 @@ struct University
 
         double computeWeekStudyTime();
         void computeSemestralAbsences();
-        void displayStudentInfo(Student& studentName);
-        void subscribeCourse(Student& studentName, Professor& professorName);
-        //void changeHoursAndStudyTime();
+        void displayStudentInfo(const Student& studentName);
+        void subscribeCourse(const Student& studentName, const Professor& professorName);
         void callUniversityStudentVarFunct();
         JUCE_LEAK_DETECTOR(Student)
     }; 
@@ -66,11 +64,10 @@ struct University
     void doResearch(std::string organization = "UCLA",
                     std::string department = "Chemistry",
                     std::string projectName = "influence of fertilizer on plant cultivation"); 
-    void doCulturalActivities(Student& name,
+    void doCulturalActivities(const Student& name,
                               std::string category = "Arts",
                               std::string activity = "Music Museum Visit"); 
     Student calculatePresentations(Student& studentNick);
-    //void changeIncomeAndTeachSt();
     void callUniversityVarFunct();
     JUCE_LEAK_DETECTOR(University)
 };

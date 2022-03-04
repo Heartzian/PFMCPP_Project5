@@ -41,7 +41,7 @@ struct Market
     //Customer phillip;
 
     void sellProducts(Customer& customerName);
-    double adjustInventary(Customer& customerName);
+    double adjustInventary(const Customer& customerName);
     Customer countNoInventoryProducts(int maxAllowed); 
     //void changeStaffAndinventory();
     void callMarketVarFunct();
