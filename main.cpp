@@ -70,7 +70,7 @@ int main()
 {
     MarketWrapper superStarMarket(new Market()); 
     CustomerWrapper carl(new Market::Customer());
-    //carl.customerPtr->calculateOrderPrice(); //Have options to select
+    carl.customerPtr->calculateOrderPrice(2,3,4,2,3);
     carl.customerPtr->orderProducts(true);
     auto customers = carl.customerPtr->countNumberCustomers(45); 
     superStarMarket.marketPtr->sellProducts(*carl.customerPtr);

@@ -1,5 +1,6 @@
 #pragma once
 #include "LeakedObjectDetector.h"
+#include "University.h"
 
 struct Projects
 {
@@ -7,7 +8,7 @@ struct Projects
     University::Professor numberOpenResearch;
     University::Student numberPapers;
     Projects();
-    ~Projects() {std::cout << "Projects Destructor\n";}
+    ~Projects();
 
     void calculateUniversityRanking(University& universityName, University::Professor& professorName, University::Student& studentName);
     void calculateResearchInvestment(University& univName, University::Professor& professorName);

@@ -12,7 +12,7 @@ struct Computer
     bool canSaveInfo;
     std::string computerName {"Republic of Gamers Strix Scar"};
     Computer();
-    ~Computer() {std::cout << "Computer Destructor\n";}
+    ~Computer();
 
     struct Hardware
     { 
@@ -26,7 +26,7 @@ struct Computer
         bool canUseAtOffice;
         int gamesAtRAM = 0;
         Hardware();
-        ~Hardware() {std::cout << "Hardware Destructor\n";}
+        ~Hardware();
         
         std::string playGames(); 
         void trainAI(); 

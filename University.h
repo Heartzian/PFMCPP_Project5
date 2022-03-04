@@ -10,7 +10,7 @@ struct University
     int classesPerSemester = 0;
     std::string universityName {"Programming Technology University"};
     University();
-    ~University() {std::cout << "University Destructor\n";}
+    ~University();
 
     struct Professor
     {
@@ -23,7 +23,7 @@ struct University
         int teachedClasses;
         int subscribedStudents;
         Professor();
-        ~Professor() {std::cout << "Professor Destructor\n";}
+        ~Professor();
 
         int checkSubscribedStudents();
         float computeMonthlyExpenses(float rent = 1800,
@@ -51,7 +51,7 @@ struct University
         double semestralAllowedAbsences = 0;
         int numberPresentations = 0;
         Student();
-        //~Student() {std::cout << "Student Destructor\n";}
+        ~Student();
 
         double computeWeekStudyTime();
         void computeSemestralAbsences();

@@ -1,12 +1,13 @@
 #pragma once
 #include "LeakedObjectDetector.h"
+#include "Market.h"
 
 struct Marketing
 {
-    Market asiaLocations;
+    Market asiaLocations; 
     Market::Customer numCustomers;
     Marketing();
-    ~Marketing() {std::cout << "Marketing Destructor\n";}
+    ~Marketing();
 
     void calculateExpensesRate(Market& marketName, int planningDays);
     void calculateRentability(Market& marketName, int promotionDays, int numberCustomers);

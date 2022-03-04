@@ -1,7 +1,6 @@
 #pragma once
 #include "LeakedObjectDetector.h"
 
-
 struct Market
 {
     double numProdLocalInv = 215;
@@ -13,7 +12,7 @@ struct Market
     int peopleAtStore = 0; 
     std::string marketName {"Asia SuperMarket"};
     Market();
-    ~Market() {std::cout << "Market Destructor\n";}
+    ~Market();
 
     struct Customer
     {
@@ -29,7 +28,7 @@ struct Market
         bool deliveryRequired = false;
         int dailyCustomers = 0;
         Customer();
-        ~Customer() {}
+        ~Customer();
 
         void calculateOrderPrice(int breakfastProds, int morningBreakProds, int lunchProds, int coffeeBreakProds, int dinnerProds); 
         void orderProducts(bool deliveryRequired = true);

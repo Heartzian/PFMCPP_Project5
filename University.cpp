@@ -6,14 +6,29 @@ University::University()
     std::cout << "University being constructed!" << std::endl;
 }
 
+University::~University()
+{
+    std::cout << "University being destructed!" << std::endl;
+}
+
 University::Professor::Professor()
 {
     std::cout << "University Professor being constructed!" << std::endl;
 }
 
+University::Professor::~Professor()
+{
+    std::cout << "University Professor being destructed!" << std::endl;
+}
+
 University::Student::Student()
 {
     std::cout << "University Student being constructed!\n" << std::endl;
+}
+
+University::Student::~Student()
+{
+    std::cout << "University Student being destructed!\n" << std::endl;
 }
 
 int University::Professor::checkSubscribedStudents()

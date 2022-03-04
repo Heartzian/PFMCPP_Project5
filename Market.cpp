@@ -6,6 +6,11 @@ Market::Customer::Customer()
     std::cout << "Customer Market being constructed!\n" << std::endl;
 }
 
+Market::Customer::~Customer()
+{
+    std::cout << "Customer Market being destructed!\n" << std::endl;
+}
+
 void Market::Customer::calculateOrderPrice(int breakfastProds = 4, int morningBreakProds = 2, int lunchProds = 5, int coffeeBreakProds = 2, int dinnerProds = 3)
 {
     double bfProdsPrice = 0.75;
