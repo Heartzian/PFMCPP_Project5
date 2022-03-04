@@ -1,6 +1,14 @@
 #include"Marketing.h"
 
-Marketing::Marketing(){}
+
+Marketing::Marketing()
+{
+    std::cout << "Marketing being constructed!\n" << std::endl;
+}
+Marketing::~Marketing()
+{
+    std::cout << "Marketing being destructed!\n" << std::endl;
+}
 
 void Marketing::calculateExpensesRate(Market& marketName, int planningDays)
 {

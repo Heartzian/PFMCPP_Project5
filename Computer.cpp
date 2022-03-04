@@ -6,9 +6,19 @@ Computer::Computer()
     std::cout << "Computer being constructed!" << std::endl;
 }
 
+Computer::~Computer()
+{
+    std::cout << "Computer being destructed!" << std::endl;
+}
+
 Computer::Hardware::Hardware()
 {
     std::cout << "Computer Hardware being constructed!\n" << std::endl;
+}
+
+Computer::Hardware::~Hardware()
+{
+    std::cout << "Computer Hardware being destructed!\n" << std::endl;
 }
 
 std::string Computer::Hardware::playGames()

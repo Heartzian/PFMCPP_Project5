@@ -1,6 +1,16 @@
 #include<iostream>
 #include"Market.h"
 
+Market::Market()
+{
+    std::cout << "Market being constructed!\n" << std::endl;
+}
+
+Market::~Market()
+{
+    std::cout << "Market being destructed!\n" << std::endl;
+}
+
 Market::Customer::Customer()
 {
     std::cout << "Customer Market being constructed!\n" << std::endl;

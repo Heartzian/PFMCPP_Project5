@@ -47,12 +47,3 @@ struct Market
     void callMarketVarFunct();
     JUCE_LEAK_DETECTOR(Market)
 };
-
-
-
-Market::Market()
-{
-    std::cout << "\nMarket being constructed!" << std::endl;
-}
-
-
