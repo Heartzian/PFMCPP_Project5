@@ -48,7 +48,7 @@ void Computer::Hardware::workAtOffice()
     }
 } 
 
-bool Computer::executePrograms(Hardware& specs, std::string installedSoft)
+bool Computer::executePrograms(const Hardware& specs, std::string installedSoft)
 {
     if (installedSoft == "GTA")
     {
